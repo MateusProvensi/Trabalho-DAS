@@ -5,19 +5,31 @@ import java.util.List;
 
 public class Venda {
 
-    private Double subTotal;
     private Double desconto;
     private Cliente cliente;
     private Funcionario funcionario;
 
+    private Double subTotal;
     private Double valorTotal;
     private List<Produto> produtosDaVenda = new ArrayList<>();
 
-    public Venda(Double subTotal, Double desconto, Cliente cliente, Funcionario funcionario) {
-        this.subTotal = subTotal;
+    public Venda(Double desconto, Cliente cliente, Funcionario funcionario) {
         this.desconto = desconto;
         this.cliente = cliente;
         this.funcionario = funcionario;
+    }
+
+    private void calcularSubTotal() {
+        Double subTotalCalculado = 0.0;
+        for (Produto produto : produtosDaVenda) {
+            subTotalCalculado += produto.getValor();
+        }
+        this.subTotal = subTotalCalculado;
+        calcularValorTotal();
+    }
+
+    private void calcularValorTotal() {
+        this.valorTotal = this.subTotal - this.desconto;
     }
 
     public Double getSubTotal() {
@@ -41,12 +53,12 @@ public class Venda {
     }
 
     public Double getValorTotal() {
-        this.valorTotal = this.subTotal - this.desconto;
         return this.valorTotal;
     }
 
     public void setDesconto(Double desconto) {
         this.desconto = desconto;
+        calcularSubTotal();
     }
 
     public void setCliente(Cliente cliente) {
@@ -57,16 +69,14 @@ public class Venda {
         this.funcionario = funcionario;
     }
 
-    public void setValorTotal(Double valorTotal) {
-        this.valorTotal = valorTotal;
-    }
-
     public void adicionarProduto(Produto produto) {
         this.produtosDaVenda.add(produto);
+        calcularSubTotal();
     }
 
     public void removerProduto(Produto produto) {
         this.produtosDaVenda.remove(produto);
+        calcularSubTotal();
     }
 
     @Override
