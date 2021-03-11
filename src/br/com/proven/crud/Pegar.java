@@ -111,10 +111,13 @@ public class Pegar {
             String escolha = sc.nextLine();
 
             if (escolha.equals("2")) {
+                if (venda.getProdutosDaVenda().size() == 0) {
+                    System.out.println("A venda não pode estar sem produtos");
+                    continue;
+                }
                 break;
             } else if (!escolha.equals("1")) {
                 System.out.println("Opção incorreta!");
-                ;
             }
             Produto produto = Pegar.pegarProduto(sc);
             venda.adicionarProduto(produto);

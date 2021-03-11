@@ -17,6 +17,8 @@ public class Venda {
         this.desconto = desconto;
         this.cliente = cliente;
         this.funcionario = funcionario;
+        this.subTotal = 0.0;
+        this.valorTotal = 0.0;
     }
 
     private void calcularSubTotal() {
