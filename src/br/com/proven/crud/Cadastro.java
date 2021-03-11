@@ -16,105 +16,6 @@ import java.util.Scanner;
 
 public class Cadastro {
 
-    public static Cliente pegarCliente(Scanner sc) {
-
-        try {
-
-            List<Cliente> clientes = Clientes.getClientes();
-
-            if (clientes.size() == 0) {
-                throw new ListaVaziaException("A lista de clientes esta vazia");
-            }
-
-            for (int i = 0; i < clientes.size(); i++) {
-                System.out.println(i + " - " + clientes.get(i).getNome());
-            }
-
-            System.out.print("Digite o indice do cliente: ");
-            Integer index = (Integer) sc.nextInt();
-
-            return clientes.get(index);
-        } catch (ListaVaziaException e) {
-            throw new ListaVaziaException(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException("Ocorreu um erro");
-        }
-    }
-
-    public static Funcionario pegarFuncionario(Scanner sc) {
-
-        try {
-
-            List<Funcionario> funcionarios = Funcionarios.getFuncionarios();
-
-            if (funcionarios.size() == 0) {
-                throw new ListaVaziaException("A lista de funcionarios esta vazia");
-            }
-
-            for (int i = 0; i < funcionarios.size(); i++) {
-                System.out.println(i + " - " + funcionarios.get(i).getNome());
-            }
-
-            System.out.print("Digite o indice do funcionario: ");
-            Integer index = (Integer) sc.nextInt();
-
-            return funcionarios.get(index);
-        } catch (ListaVaziaException e) {
-            throw new ListaVaziaException(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException("Ocorreu um erro");
-        }
-    }
-
-    public static Produto pegarProduto(Scanner sc) {
-
-        try {
-
-            List<Produto> produtos = Produtos.getProdutos();
-
-            if (produtos.size() == 0) {
-                throw new ListaVaziaException("A lista de produtos está vazia");
-            }
-
-            for (int i = 0; i < produtos.size(); i++) {
-                System.out.println(i + " - " + produtos.get(i).getDescricao());
-            }
-
-            System.out.print("Digite o indice do produto: ");
-            Integer index = (Integer) sc.nextInt();
-
-            return produtos.get(index);
-        } catch (ListaVaziaException e) {
-            throw new ListaVaziaException(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException("Ocorreu um erro");
-        }
-    }
-
-    public static Venda pegarVenda(Scanner sc) {
-
-        try {
-
-            List<Venda> vendas = Vendas.getVendas();
-
-            if (vendas.size() == 0) {
-                throw new ListaVaziaException("A lista de vendas esta vazia");
-            }
-
-            for (int i = 0; i < vendas.size(); i++) {
-                System.out.println(i + " - " + vendas.get(i));
-            }
-
-            System.out.print("Digite o indice do produto: ");
-            Integer index = (Integer) sc.nextInt();
-
-            return vendas.get(index);
-        } catch (ListaVaziaException e) {
-            throw new ListaVaziaException(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException("Ocorreu um erro");
-        }
-    }
 
     public static Cliente cadastrarCliente(Scanner sc) {
 
@@ -160,7 +61,7 @@ public class Cadastro {
 
     }
 
-    public static Funcionario cadastrarFucnionario(Scanner sc) {
+    public static Funcionario cadastrarFuncionario(Scanner sc) {
 
         try {
 
@@ -183,26 +84,6 @@ public class Cadastro {
 
     }
 
-    public static void produtoVenda(Scanner sc, Venda venda) {
-        try {
-            while (true) {
-                System.out.println("1 - Adicionar mais");
-                System.out.println("2 - Finalizar");
-
-                System.out.print("Digite a sua escolha: ");
-                String escolha = sc.nextLine();
-
-                if (escolha.equals("2")) {
-                    break;
-                }
-                Produto produto = Cadastro.pegarProduto(sc);
-                venda.adicionarProduto(produto);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     public static Venda criarVenda(Scanner sc) {
 
         try {
@@ -213,12 +94,12 @@ public class Cadastro {
                 throw new ValorNegativoException("O valor está negativo");
             }
 
-            Cliente cliente = pegarCliente(sc);
-            Funcionario funcionario = pegarFuncionario(sc);
+            Cliente cliente = Pegar.pegarCliente(sc);
+            Funcionario funcionario = Pegar.pegarFuncionario(sc);
 
             Venda vendaAtual = new Venda(desconto, cliente, funcionario);
 
-            produtoVenda(sc, vendaAtual);
+            Pegar.pegarProdutoVenda(sc, vendaAtual);
 
             return vendaAtual;
         } catch (ValorNegativoException e) {
