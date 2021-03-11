@@ -5,6 +5,8 @@ import br.com.proven.entities.Cliente;
 import br.com.proven.entities.Funcionario;
 import br.com.proven.entities.Produto;
 import br.com.proven.entities.Venda;
+import br.com.proven.exceptions.ConversaoException;
+import br.com.proven.exceptions.ListaVaziaException;
 import br.com.proven.exceptions.OpcaoIncorretaException;
 
 import java.util.ArrayList;
@@ -60,8 +62,8 @@ public class Util {
                 default:
                     throw new OpcaoIncorretaException("A opção é inexistente");
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+        } catch (OpcaoIncorretaException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -87,10 +89,9 @@ public class Util {
                 default:
                     throw new OpcaoIncorretaException("A opção é inexistente");
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+        } catch (ConversaoException e ) {
+            System.out.println(e.getMessage());
         }
-
     }
 
     public static String menuAlterarDeletar(Scanner sc) {
@@ -133,8 +134,8 @@ public class Util {
                 default:
                     throw new OpcaoIncorretaException("A opção é inexistente");
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+        } catch (ListaVaziaException | ConversaoException e) {
+            System.out.println(e.getMessage());
         }
     }
 

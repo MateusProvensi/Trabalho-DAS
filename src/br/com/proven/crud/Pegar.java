@@ -9,6 +9,7 @@ import br.com.proven.entities.Funcionario;
 import br.com.proven.entities.Produto;
 import br.com.proven.entities.Venda;
 import br.com.proven.exceptions.ListaVaziaException;
+import br.com.proven.exceptions.OpcaoIncorretaException;
 
 import java.util.List;
 import java.util.Scanner;
@@ -35,8 +36,6 @@ public class Pegar {
             return clientes.get(index);
         } catch (ListaVaziaException e) {
             throw new ListaVaziaException(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException("Ocorreu um erro");
         }
     }
 
@@ -60,79 +59,67 @@ public class Pegar {
             return funcionarios.get(index);
         } catch (ListaVaziaException e) {
             throw new ListaVaziaException(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException("Ocorreu um erro");
         }
     }
 
     public static Produto pegarProduto(Scanner sc) {
 
-        try {
 
-            List<Produto> produtos = Produtos.getProdutos();
+        List<Produto> produtos = Produtos.getProdutos();
 
-            if (produtos.size() == 0) {
-                throw new ListaVaziaException("A lista de produtos está vazia");
-            }
-
-            for (int i = 0; i < produtos.size(); i++) {
-                System.out.println(i + " - " + produtos.get(i).getDescricao());
-            }
-
-            System.out.print("Digite o indice do produto: ");
-            Integer index = (Integer) sc.nextInt();
-
-            return produtos.get(index);
-        } catch (ListaVaziaException e) {
-            throw new ListaVaziaException(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException("Ocorreu um erro");
+        if (produtos.size() == 0) {
+            throw new ListaVaziaException("A lista de produtos está vazia");
         }
+
+        for (int i = 0; i < produtos.size(); i++) {
+            System.out.println(i + " - " + produtos.get(i).getDescricao());
+        }
+
+        System.out.print("Digite o indice do produto: ");
+        Integer index = (Integer) sc.nextInt();
+
+        return produtos.get(index);
     }
 
     public static Venda pegarVenda(Scanner sc) {
 
-        try {
 
-            List<Venda> vendas = Vendas.getVendas();
+        List<Venda> vendas = Vendas.getVendas();
 
-            if (vendas.size() == 0) {
-                throw new ListaVaziaException("A lista de vendas esta vazia");
-            }
-
-            for (int i = 0; i < vendas.size(); i++) {
-                System.out.println(i + " - " + vendas.get(i));
-            }
-
-            System.out.print("Digite o indice do produto: ");
-            Integer index = (Integer) sc.nextInt();
-
-            return vendas.get(index);
-        } catch (ListaVaziaException e) {
-            throw new ListaVaziaException(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException("Ocorreu um erro");
+        if (vendas.size() == 0) {
+            throw new ListaVaziaException("A lista de vendas esta vazia");
         }
+
+        for (int i = 0; i < vendas.size(); i++) {
+            System.out.println(i + " - " + vendas.get(i));
+        }
+
+        System.out.print("Digite o indice do produto: ");
+        Integer index = (Integer) sc.nextInt();
+
+        return vendas.get(index);
+
     }
 
     public static void pegarProdutoVenda(Scanner sc, Venda venda) {
-        try {
-            while (true) {
-                System.out.println("1 - Adicionar mais");
-                System.out.println("2 - Finalizar");
 
-                System.out.print("Digite a sua escolha: ");
-                String escolha = sc.nextLine();
+        while (true) {
+            System.out.println("1 - Adicionar mais");
+            System.out.println("2 - Finalizar");
 
-                if (escolha.equals("2")) {
-                    break;
-                }
-                Produto produto = Pegar.pegarProduto(sc);
-                venda.adicionarProduto(produto);
+            System.out.print("Digite a sua escolha: ");
+            String escolha = sc.nextLine();
+
+            if (escolha.equals("2")) {
+                break;
+            } else if (!escolha.equals("1")) {
+                System.out.println("Opção incorreta!");
+                ;
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Produto produto = Pegar.pegarProduto(sc);
+            venda.adicionarProduto(produto);
         }
+
     }
 
 

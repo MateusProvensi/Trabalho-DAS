@@ -1,6 +1,5 @@
 package br.com.proven.crud;
 
-import br.com.proven.collections.Clientes;
 import br.com.proven.entities.Cliente;
 
 import java.util.List;

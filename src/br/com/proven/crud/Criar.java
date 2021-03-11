@@ -4,8 +4,11 @@ import br.com.proven.entities.Cliente;
 import br.com.proven.entities.Funcionario;
 import br.com.proven.entities.Produto;
 import br.com.proven.entities.Venda;
+import br.com.proven.exceptions.ConversaoException;
+import br.com.proven.exceptions.ListaVaziaException;
 import br.com.proven.exceptions.ValorNegativoException;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Criar {
@@ -27,16 +30,17 @@ public class Criar {
             System.out.print("Digite o limite: ");
             Double limite = sc.nextDouble();
 
+            if (limite < 0) {
+                throw new ValorNegativoException("O valor está negativo");
+            }
+
             return new Cliente(nome, sobrenome, cpf, limite);
-        } catch (Exception e) {
-            throw new RuntimeException("Ocorreu um erro");
+        } catch (InputMismatchException e) {
+            throw new ConversaoException("Os valores são inadequados");
         }
-
-
     }
 
     public static Produto criarProduto(Scanner sc) {
-
         try {
 
             System.out.println("Digite a descrição: ");
@@ -48,11 +52,14 @@ public class Criar {
             System.out.println("Digite o valor: ");
             Double valor = sc.nextDouble();
 
-            return new Produto(descricao, unidadeMedida, valor);
-        } catch (Exception e) {
-            throw new RuntimeException("Ocorreu um erro");
-        }
+            if (valor < 0) {
+                throw new ValorNegativoException("O valor está negativo");
+            }
 
+            return new Produto(descricao, unidadeMedida, valor);
+        } catch (InputMismatchException e) {
+            throw new ConversaoException("Os valores são inadequados");
+        }
     }
 
     public static Funcionario criarFuncionario(Scanner sc) {
@@ -71,9 +78,13 @@ public class Criar {
             System.out.println("Digite o salario: ");
             Double salario = sc.nextDouble();
 
+            if (salario < 0) {
+                throw new ValorNegativoException("O valor esta negativo");
+            }
+
             return new Funcionario(nome, sobrenome, cpf, salario);
-        } catch (Exception e) {
-            throw new RuntimeException("Ocorreu um erro");
+        } catch (InputMismatchException e) {
+            throw new ConversaoException("Os valores são inadequados");
         }
 
     }
@@ -96,10 +107,10 @@ public class Criar {
             Pegar.pegarProdutoVenda(sc, vendaAtual);
 
             return vendaAtual;
-        } catch (ValorNegativoException e) {
-            throw new ValorNegativoException(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+        } catch (ListaVaziaException e) {
+            throw new ListaVaziaException(e.getMessage());
+        } catch (InputMismatchException e) {
+            throw new ConversaoException("Os valores são inadequados");
         }
     }
 }

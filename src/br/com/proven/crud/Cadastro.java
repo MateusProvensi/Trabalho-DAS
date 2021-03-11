@@ -8,29 +8,47 @@ import br.com.proven.entities.Cliente;
 import br.com.proven.entities.Funcionario;
 import br.com.proven.entities.Produto;
 import br.com.proven.entities.Venda;
+import br.com.proven.exceptions.ListaVaziaException;
+import br.com.proven.exceptions.ValorNegativoException;
 
 import java.util.Scanner;
 
 public class Cadastro {
 
     public static void cadastrarCliente(Scanner sc) {
-        Cliente cliente = Criar.criarCliente(sc);
-        Clientes.adicionarCliente(cliente);
+        try {
+            Cliente cliente = Criar.criarCliente(sc);
+            Clientes.adicionarCliente(cliente);
+        } catch (ValorNegativoException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void cadastrarProduto(Scanner sc) {
-        Produto produto = Criar.criarProduto(sc);
-        Produtos.adicionarProduto(produto);
+        try {
+            Produto produto = Criar.criarProduto(sc);
+            Produtos.adicionarProduto(produto);
+        } catch (ValorNegativoException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void cadastrarFuncionario(Scanner sc) {
-        Funcionario funcionario = Criar.criarFuncionario(sc);
-        Funcionarios.adicionarFuncionario(funcionario);
+        try {
+            Funcionario funcionario = Criar.criarFuncionario(sc);
+            Funcionarios.adicionarFuncionario(funcionario);
+        } catch (ValorNegativoException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void cadastrarVenda(Scanner sc) {
-        Venda venda = Criar.criarVenda(sc);
-        Vendas.adicionarVenda(venda);
+        try {
+            Venda venda = Criar.criarVenda(sc);
+            Vendas.adicionarVenda(venda);
+        } catch (ValorNegativoException | ListaVaziaException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }
