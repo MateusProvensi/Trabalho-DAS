@@ -103,7 +103,7 @@ public class Venda {
     public String mostrarDados() {
         return getSubTotal() + " | " + getValorTotal() + " | " + getDesconto() + " | " + getCliente().getNome() + " " +
                 getCliente().getSobrenome() + " | " + getFuncionario().getNome() + " "
-                + getFuncionario().getSobrenome() + " | " + getProdutosDaVenda().toString();
+                + getFuncionario().getSobrenome() + " | " + mostrarListaString();
         // Criar o meu método para mostrar listas nesse mostrar dados usando StringBuilder;
     }
 

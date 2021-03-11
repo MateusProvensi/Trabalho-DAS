@@ -35,7 +35,7 @@ public class Util {
         venda.adicionarProduto(produto1);
         venda.adicionarProduto(produto3);
 
-        System.out.println(venda.mostrarListaString());
+        System.out.println(venda.mostrarDados());
 
         sc.close();
     }
