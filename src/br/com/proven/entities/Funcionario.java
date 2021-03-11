@@ -34,6 +34,10 @@ public class Funcionario extends Pessoa{
         this.vendasFeitas.remove(venda);
     }
 
+    public String mostrarDados() {
+        return super.mostrarDadosPessoa() + " | " + getSalario();
+    }
+
     @Override
     public String toString() {
         return "Funcionario{" +

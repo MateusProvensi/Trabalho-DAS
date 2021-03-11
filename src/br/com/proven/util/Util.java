@@ -23,18 +23,20 @@ public class Util {
         clientes.add(new Cliente("FA", "Silva", "123484", 15.00));
         clientes.add(new Cliente("JasFEpion", "Silva", "123484", 15.00));
 
+        Funcionario funcionario = new Funcionario("haba", "Justo", "456132", 450.0);
 
-        Double a = 45.00;
-        try {
-            a = sc.nextDouble();
-            Integer b = 5 / 0;
-        } catch (InputMismatchException e) {
-            System.out.println(e.getMessage());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println(a);
-        //menuPrincipal(sc);
+        Produto produto1 = new Produto("Coca", "LT", 5.00);
+        Produto produto2 = new Produto("Pepsi", "LT", 4.00);
+        Produto produto3 = new Produto("Hamburguer", "UN", 9.00);
+
+        Venda venda = new Venda(0.0, clientes.get(0), funcionario);
+        venda.adicionarProduto(produto1);
+        venda.adicionarProduto(produto2);
+        venda.adicionarProduto(produto1);
+        venda.adicionarProduto(produto3);
+
+        System.out.println(venda.mostrarListaString());
+
         sc.close();
     }
 
@@ -68,30 +70,28 @@ public class Util {
     }
 
     public static void menuCadastrar(Scanner sc) {
-        try {
-            System.out.println("1 - Cliente");
-            System.out.println("2 - Produto");
-            System.out.println("3 - Funcionario");
 
-            System.out.print("Digite a sua escolha: ");
-            String escolha = sc.nextLine();
+        System.out.println("1 - Cliente");
+        System.out.println("2 - Produto");
+        System.out.println("3 - Funcionario");
 
-            switch (escolha) {
-                case "1":
-                    Cadastro.cadastrarCliente(sc);
-                    break;
-                case "2":
-                    Cadastro.cadastrarProduto(sc);
-                    break;
-                case "3":
-                    Cadastro.cadastrarFuncionario(sc);
-                    break;
-                default:
-                    throw new OpcaoIncorretaException("A opção é inexistente");
-            }
-        } catch (ConversaoException e ) {
-            System.out.println(e.getMessage());
+        System.out.print("Digite a sua escolha: ");
+        String escolha = sc.nextLine();
+
+        switch (escolha) {
+            case "1":
+                Cadastro.cadastrarCliente(sc);
+                break;
+            case "2":
+                Cadastro.cadastrarProduto(sc);
+                break;
+            case "3":
+                Cadastro.cadastrarFuncionario(sc);
+                break;
+            default:
+                throw new OpcaoIncorretaException("A opção é inexistente");
         }
+
     }
 
     public static String menuAlterarDeletar(Scanner sc) {
@@ -134,7 +134,7 @@ public class Util {
                 default:
                     throw new OpcaoIncorretaException("A opção é inexistente");
             }
-        } catch (ListaVaziaException | ConversaoException e) {
+        } catch (ListaVaziaException e) {
             System.out.println(e.getMessage());
         }
     }

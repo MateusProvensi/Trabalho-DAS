@@ -9,7 +9,6 @@ import br.com.proven.entities.Funcionario;
 import br.com.proven.entities.Produto;
 import br.com.proven.entities.Venda;
 import br.com.proven.exceptions.ListaVaziaException;
-import br.com.proven.exceptions.OpcaoIncorretaException;
 
 import java.util.List;
 import java.util.Scanner;

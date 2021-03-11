@@ -81,6 +81,32 @@ public class Venda {
         calcularSubTotal();
     }
 
+    public String mostrarListaString() {
+        StringBuilder produtos = new StringBuilder("[ ");
+
+        Integer ultimoIndex = produtosDaVenda.size() - 1;
+
+        for (int i = 0; i < produtosDaVenda.size(); i++) {
+            if (i == ultimoIndex){
+                produtos.append(i + 1).append(": ").append(produtosDaVenda.get(i).getDescricao());
+            }
+            else {
+                produtos.append(i + 1).append(": ").append(produtosDaVenda.get(i).getDescricao()).append(", ");
+            }
+        }
+
+        produtos.append(" ]");
+
+        return produtos.toString();
+    }
+
+    public String mostrarDados() {
+        return getSubTotal() + " | " + getValorTotal() + " | " + getDesconto() + " | " + getCliente().getNome() + " " +
+                getCliente().getSobrenome() + " | " + getFuncionario().getNome() + " "
+                + getFuncionario().getSobrenome() + " | " + getProdutosDaVenda().toString();
+        // Criar o meu método para mostrar listas nesse mostrar dados usando StringBuilder;
+    }
+
     @Override
     public String toString() {
         return "Venda{" +

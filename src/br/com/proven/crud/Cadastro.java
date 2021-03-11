@@ -8,6 +8,7 @@ import br.com.proven.entities.Cliente;
 import br.com.proven.entities.Funcionario;
 import br.com.proven.entities.Produto;
 import br.com.proven.entities.Venda;
+import br.com.proven.exceptions.ConversaoException;
 import br.com.proven.exceptions.ListaVaziaException;
 import br.com.proven.exceptions.ValorNegativoException;
 
@@ -19,7 +20,7 @@ public class Cadastro {
         try {
             Cliente cliente = Criar.criarCliente(sc);
             Clientes.adicionarCliente(cliente);
-        } catch (ValorNegativoException e) {
+        } catch (ValorNegativoException | ConversaoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -37,7 +38,7 @@ public class Cadastro {
         try {
             Funcionario funcionario = Criar.criarFuncionario(sc);
             Funcionarios.adicionarFuncionario(funcionario);
-        } catch (ValorNegativoException e) {
+        } catch (ValorNegativoException | ConversaoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -46,7 +47,7 @@ public class Cadastro {
         try {
             Venda venda = Criar.criarVenda(sc);
             Vendas.adicionarVenda(venda);
-        } catch (ValorNegativoException | ListaVaziaException e) {
+        } catch (ValorNegativoException | ListaVaziaException | ConversaoException e) {
             System.out.println(e.getMessage());
         }
     }

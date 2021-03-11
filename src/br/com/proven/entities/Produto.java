@@ -36,6 +36,10 @@ public class Produto {
         this.valor = valor;
     }
 
+    public String mostrarDados() {
+        return getDescricao() + " | " + getUnidadeMedida() + " | " + getValor();
+    }
+
     @Override
     public String toString() {
         return "Produto{" +
