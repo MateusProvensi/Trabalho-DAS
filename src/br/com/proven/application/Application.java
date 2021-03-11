@@ -1,8 +1,5 @@
 package br.com.proven.application;
 
-import br.com.proven.crud.Cadastro;
-import br.com.proven.crud.Pegar;
-
 import java.util.Scanner;
 
 public class Application {

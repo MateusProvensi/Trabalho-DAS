@@ -1,9 +1,6 @@
 package br.com.proven.util;
 
-import br.com.proven.crud.Alterar;
-import br.com.proven.crud.Cadastro;
-import br.com.proven.crud.Deletar;
-import br.com.proven.crud.Pegar;
+import br.com.proven.crud.*;
 import br.com.proven.entities.Cliente;
 import br.com.proven.entities.Funcionario;
 import br.com.proven.entities.Produto;
@@ -39,7 +36,7 @@ public class Util {
                     AlterarEDeletar(sc, escolha);
                     break;
                 case "4":
-                    Cadastro.criarVenda(sc);
+                    Cadastro.cadastrarVenda(sc);
                     break;
                 default:
                     throw new OpcaoIncorretaException("A opção é inexistente");
