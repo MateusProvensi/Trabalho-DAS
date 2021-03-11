@@ -7,13 +7,32 @@ import br.com.proven.entities.Produto;
 import br.com.proven.entities.Venda;
 import br.com.proven.exceptions.OpcaoIncorretaException;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Util {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        menuPrincipal(sc);
+        List<Cliente> clientes = new ArrayList<Cliente>();
+        clientes.add(new Cliente("Jaspion", "Silva", "123484", 15.00));
+        clientes.add(new Cliente("FA", "Silva", "123484", 15.00));
+        clientes.add(new Cliente("JasFEpion", "Silva", "123484", 15.00));
+
+
+        Double a = 45.00;
+        try {
+            a = sc.nextDouble();
+            Integer b = 5 / 0;
+        } catch (InputMismatchException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(a);
+        //menuPrincipal(sc);
         sc.close();
     }
 
@@ -41,8 +60,6 @@ public class Util {
                 default:
                     throw new OpcaoIncorretaException("A opção é inexistente");
             }
-        } catch (OpcaoIncorretaException e) {
-            throw new OpcaoIncorretaException(e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -70,8 +87,6 @@ public class Util {
                 default:
                     throw new OpcaoIncorretaException("A opção é inexistente");
             }
-        } catch (OpcaoIncorretaException e) {
-            throw new OpcaoIncorretaException(e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -118,8 +133,6 @@ public class Util {
                 default:
                     throw new OpcaoIncorretaException("A opção é inexistente");
             }
-        } catch (OpcaoIncorretaException e) {
-            throw new OpcaoIncorretaException(e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

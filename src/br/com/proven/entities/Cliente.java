@@ -30,8 +30,12 @@ public class Cliente extends Pessoa{
         this.vendasParticipadas.remove(venda);
     }
 
-    public void pagarCrediario(Double valorPago) {
-        this.limite -= valorPago;
+    public void setLimite(Double limite) {
+        this.limite = limite;
+    }
+
+    public String mostrarDados() {
+        return super.mostrarDadosPessoa() + " | " + getLimite();
     }
 
     @Override

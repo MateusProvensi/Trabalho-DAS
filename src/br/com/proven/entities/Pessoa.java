@@ -36,6 +36,10 @@ public abstract class Pessoa {
         this.cpf = cpf;
     }
 
+    public String mostrarDadosPessoa() {
+        return getNome() + " | " + getSobrenome() + " | " + getCpf();
+    }
+
     @Override
     public String toString() {
         return "Pessoa{" +
