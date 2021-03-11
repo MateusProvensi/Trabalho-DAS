@@ -1,12 +1,6 @@
 package br.com.proven.application;
 
-import br.com.proven.cadastros.Cadastro;
-import br.com.proven.collections.Clientes;
-import br.com.proven.entities.Cliente;
-import br.com.proven.entities.Funcionario;
-import br.com.proven.entities.Produto;
-import br.com.proven.entities.Venda;
-import br.com.proven.util.Util;
+import br.com.proven.crud.Cadastro;
 
 import java.util.Scanner;
 

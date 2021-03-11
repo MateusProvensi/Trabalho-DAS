@@ -1,7 +1,10 @@
 package br.com.proven.util;
 
 import br.com.proven.collections.Clientes;
+import br.com.proven.crud.Cadastro;
 import br.com.proven.entities.Cliente;
+import br.com.proven.entities.Produto;
+import br.com.proven.entities.Venda;
 
 import java.util.Scanner;
 

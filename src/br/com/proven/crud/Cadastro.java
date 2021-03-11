@@ -1,4 +1,4 @@
-package br.com.proven.cadastros;
+package br.com.proven.crud;
 
 import br.com.proven.collections.Clientes;
 import br.com.proven.collections.Funcionarios;
@@ -9,6 +9,7 @@ import br.com.proven.entities.Funcionario;
 import br.com.proven.entities.Produto;
 import br.com.proven.entities.Venda;
 import br.com.proven.exceptions.ListaVaziaException;
+import br.com.proven.exceptions.ValorNegativoException;
 
 import java.util.List;
 import java.util.Scanner;
@@ -30,7 +31,7 @@ public class Cadastro {
             }
 
             System.out.print("Digite o indice do cliente: ");
-            int index = sc.nextInt();
+            Integer index = (Integer) sc.nextInt();
 
             return clientes.get(index);
         } catch (ListaVaziaException e) {
@@ -55,10 +56,10 @@ public class Cadastro {
             }
 
             System.out.print("Digite o indice do funcionario: ");
-            int index = sc.nextInt();
+            Integer index = (Integer) sc.nextInt();
 
             return funcionarios.get(index);
-        } catch (ListaVaziaException e){
+        } catch (ListaVaziaException e) {
             throw new ListaVaziaException(e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException("Ocorreu um erro");
@@ -80,10 +81,10 @@ public class Cadastro {
             }
 
             System.out.print("Digite o indice do produto: ");
-            int index = sc.nextInt();
+            Integer index = (Integer) sc.nextInt();
 
             return produtos.get(index);
-        } catch (ListaVaziaException e){
+        } catch (ListaVaziaException e) {
             throw new ListaVaziaException(e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException("Ocorreu um erro");
@@ -105,10 +106,10 @@ public class Cadastro {
             }
 
             System.out.print("Digite o indice do produto: ");
-            int index = sc.nextInt();
+            Integer index = (Integer) sc.nextInt();
 
             return vendas.get(index);
-        } catch (ListaVaziaException e){
+        } catch (ListaVaziaException e) {
             throw new ListaVaziaException(e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException("Ocorreu um erro");
@@ -182,7 +183,48 @@ public class Cadastro {
 
     }
 
+    public static void produtoVenda(Scanner sc, Venda venda) {
+        try {
+            while (true) {
+                System.out.println("1 - Adicionar mais");
+                System.out.println("2 - Finalizar");
+
+                System.out.print("Digite a sua escolha: ");
+                String escolha = sc.nextLine();
+
+                if (escolha.equals("2")) {
+                    break;
+                }
+                Produto produto = Cadastro.pegarProduto(sc);
+                venda.adicionarProduto(produto);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static Venda criarVenda(Scanner sc) {
-        return null;
+
+        try {
+            System.out.println("Digite o desconto: ");
+            Double desconto = (Double) sc.nextDouble();
+
+            if (desconto < 0.0) {
+                throw new ValorNegativoException("O valor está negativo");
+            }
+
+            Cliente cliente = pegarCliente(sc);
+            Funcionario funcionario = pegarFuncionario(sc);
+
+            Venda vendaAtual = new Venda(desconto, cliente, funcionario);
+
+            produtoVenda(sc, vendaAtual);
+
+            return vendaAtual;
+        } catch (ValorNegativoException e) {
+            throw new ValorNegativoException(e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }
