@@ -7,7 +7,7 @@ public class Cliente extends Pessoa{
 
     private Double limite;
 
-    private List<Venda> vendasParticipadas= new ArrayList<>();
+    private List<Venda> vendasParticipadas = new ArrayList<>();
 
     public Cliente(String nome, String sobrenome, String cpf, Double limite) {
         super(nome, sobrenome, cpf);

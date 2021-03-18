@@ -19,6 +19,7 @@ public class Venda {
         this.funcionario = funcionario;
         this.subTotal = 0.0;
         this.valorTotal = 0.0;
+        this.cliente.adicionarVenda(this);
     }
 
     private void calcularSubTotal() {
@@ -104,7 +105,6 @@ public class Venda {
         return getSubTotal() + " | " + getValorTotal() + " | " + getDesconto() + " | " + getCliente().getNome() + " " +
                 getCliente().getSobrenome() + " | " + getFuncionario().getNome() + " "
                 + getFuncionario().getSobrenome() + " | " + mostrarListaString();
-        // Criar o meu método para mostrar listas nesse mostrar dados usando StringBuilder;
     }
 
     @Override

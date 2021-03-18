@@ -26,12 +26,16 @@ public class Funcionario extends Pessoa{
         this.salario += salario * porcentagem / 100;
     }
 
-    public void adicionarVendas(Venda venda) {
+    public void adicionarVenda(Venda venda) {
         this.vendasFeitas.add(venda);
     }
 
-    public void removerVendas(Venda venda) {
+    public void removerVenda(Venda venda) {
         this.vendasFeitas.remove(venda);
+    }
+
+    public void setSalario(Double salario) {
+        this.salario = salario;
     }
 
     public String mostrarDados() {
