@@ -14,62 +14,30 @@ import br.com.proven.entities.Venda;
 import br.com.proven.exceptions.ListaVaziaException;
 import br.com.proven.exceptions.OpcaoIncorretaException;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Util {
 
-    private static final FuncionarioCrud funcionarioCrud = new FuncionarioCrud();
-    private static final ClienteCrud clienteCrud = new ClienteCrud();
-    private static final ProdutoCrud produtoCrud = new ProdutoCrud();
-    private static final VendaCrud vendaCrud = new VendaCrud();
+    private final FuncionarioCrud funcionarioCrud;
+    private final ClienteCrud clienteCrud;
+    private final ProdutoCrud produtoCrud;
+    private final VendaCrud vendaCrud;
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        Clientes.adicionarCliente(new Cliente("Jaspion", "Silva", "123484", 15.00));
-        Clientes.adicionarCliente(new Cliente("Guse", "Silva", "123484", 500.00));
-        Clientes.adicionarCliente(new Cliente("Moyse", "Silva", "123484", 600.00));
-        Clientes.adicionarCliente(new Cliente("Caeca", "Silva", "123484", 900.00));
-        Clientes.adicionarCliente(new Cliente("Nisil", "Silva", "123484", 1900.00));
-
-        Produtos.adicionarProduto(new Produto("Coca", "LT", 5.00));
-        Produtos.adicionarProduto(new Produto("Pepsi", "LT", 4.00));
-        Produtos.adicionarProduto(new Produto("Hamburguer", "UN", 9.00));
-
-        Funcionarios.adicionarFuncionario(new Funcionario("Lioga", "Souza", "4651216", 1500.00));
-        Funcionarios.adicionarFuncionario(new Funcionario("Pehiu", "Souza", "4651216", 1800.00));
-        Funcionarios.adicionarFuncionario(new Funcionario("Fibya", "Souza", "4651216", 1900.00));
-        Funcionarios.adicionarFuncionario(new Funcionario("Topo", "Souza", "4651216", 2000.00));
-
-        Venda venda1 = new Venda(0.0, Clientes.getClientes().get(0), Funcionarios.getFuncionarios().get(0));
-        venda1.adicionarProduto(Produtos.getProdutos().get(0));
-        venda1.adicionarProduto(Produtos.getProdutos().get(0));
-        venda1.adicionarProduto(Produtos.getProdutos().get(1));
-
-        Vendas.adicionarVenda(venda1);
-
-
-        boolean continuar = true;
-        while (continuar) {
-            for (int i = 0; i < 50; ++i) System.out.println ();
-            continuar = Util.menuPrincipal(sc);
-            System.out.println("Pressione enter para continuar");
-            sc.nextLine();
-        }
-
-        sc.close();
+    public Util() {
+        this.funcionarioCrud = new FuncionarioCrud();
+        this.clienteCrud = new ClienteCrud();
+        this.produtoCrud = new ProdutoCrud();
+        this.vendaCrud = new VendaCrud();
     }
 
-    public static Boolean menuPrincipal(Scanner sc) {
+    public Boolean menuPrincipal(Scanner sc) {
         try {
             System.out.println("1 - Cadastar");
             System.out.println("2 - Alterar");
             System.out.println("3 - Excluir");
             System.out.println("4 - Fazer venda");
-            System.out.println("5 - Sair");
+            System.out.println("5 - Mostrar dados");
+            System.out.println("6 - Sair");
 
             System.out.print("Digite a sua escolha: ");
             String escolha = sc.nextLine();
@@ -86,6 +54,10 @@ public class Util {
                     vendaCrud.cadastrarVenda(sc, produtoCrud, clienteCrud, funcionarioCrud);
                     break;
                 case "5":
+                    //System.out.println("Ainda não foi implementada");
+                    lerDados(sc);
+                    break;
+                case "6":
                     return false;
                 default:
                     throw new OpcaoIncorretaException("A opção é inexistente");
@@ -96,7 +68,7 @@ public class Util {
         return true;
     }
 
-    public static void menuCadastrar(Scanner sc) {
+    public void menuCadastrar(Scanner sc) {
 
         try {
             System.out.println("1 - Cliente");
@@ -125,7 +97,7 @@ public class Util {
 
     }
 
-    public static String menuAlterarDeletar(Scanner sc) {
+    public String menuAlterarDeletarLer(Scanner sc) {
         System.out.println("1 - Cliente");
         System.out.println("2 - Produto");
         System.out.println("3 - Funcionario");
@@ -137,9 +109,29 @@ public class Util {
         return escolha;
     }
 
-    public static void AlterarEDeletar(Scanner sc, String escolhaMenuPrincipal) {
+    public void lerDados(Scanner sc) {
+        String escolha = menuAlterarDeletarLer(sc);
+        switch (escolha) {
+            case "1":
+                clienteCrud.mostrarTodosClientes(Clientes.getClientes());
+                break;
+            case "2":
+                produtoCrud.mostrarTodosProdutos(Produtos.getProdutos());
+                break;
+            case "3":
+                funcionarioCrud.mostrarTodosFuncionarios(Funcionarios.getFuncionarios());
+                break;
+            case "4":
+                vendaCrud.mostrarTodasVendas(Vendas.getVendas());
+                break;
+            default:
+                throw new OpcaoIncorretaException("A opção é inexistente");
+        }
+    }
+
+    public void AlterarEDeletar(Scanner sc, String escolhaMenuPrincipal) {
         try {
-            String escolha = menuAlterarDeletar(sc);
+            String escolha = menuAlterarDeletarLer(sc);
 
             switch (escolha) {
                 case "1":
